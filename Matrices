@@ -1,0 +1,17 @@
+import math
+
+def es_cuadrado(n):
+    return int(math.sqrt(n))**2 == n
+
+def solucion(A):
+    n = A.shape[0]
+    n_cuadrados_perfectos = 0
+    l_cuadrados_perfectos = []
+
+    for i in range(n):
+        for j in range(n):
+            if es_cuadrado(A[i][j]):
+                n_cuadrados_perfectos += 1
+                l_cuadrados_perfectos.append(A[i][j])
+    
+    return n_cuadrados_perfectos, l_cuadrados_perfectos
