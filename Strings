@@ -1,0 +1,16 @@
+fname = input('Enter file name: ')
+fhand = open(fname)
+count = 0
+for line in fhand:
+    line.rstrip()
+    if not line.startswith('From'):
+        continue
+    else:
+        intline = line.split()
+        if intline[0] == 'From:':
+            continue
+        else:
+            sentm = intline[1]
+            print(sentm)
+            count = count + 1
+print('There were',count,'lines in the file with From as the first word')
