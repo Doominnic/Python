@@ -1,0 +1,35 @@
+class cliente:
+  def __init__(self, nombre, edad, dinero_cuenta_bancaria, fila_interes, transaccion, cantidad_retirar, cantidad_consignar):
+    self.nombre = nombre
+    self.edad = edad
+    self.dinero_cuenta_bancaria = dinero_cuenta_bancaria
+    self.fila_interes = fila_interes
+    self.transaccion = transaccion
+    self.cantidad_retirar = cantidad_retirar
+    self.cantidad_consignar = cantidad_consignar
+
+def sede_bancaria(cola_general):
+    cola_caja = list()
+    cola_info = list()
+    suma_retiros = 0
+    suma_consignaciones = 0
+    edad_minima_retiro = -1
+    edad_minima_consignacion = -1
+    edad_minima_info = -1
+
+    for cliente in cola_general:
+        if cliente.fila_interes == 'caja':
+            cola_caja.append(cliente.nombre)
+            if cliente.transaccion == 'retirar':
+                suma_retiros += cliente.cantidad_retirar
+                if edad_minima_retiro == -1 or edad_minima_retiro > cliente.edad:
+                    edad_minima_retiro = cliente.edad
+            elif cliente.transaccion == 'consignar':
+                suma_consignaciones += cliente.cantidad_consignar
+                if edad_minima_consignacion == -1 or edad_minima_consignacion > cliente.edad:
+                    edad_minima_consignacion = cliente.edad
+
+        else:
+            cola_info.append(cliente.nombre)
+            if edad_minima_info == -1 or edad_minima_info > cliente.edad:
+                    edad_minima_info = cliente.edad
