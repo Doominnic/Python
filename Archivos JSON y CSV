@@ -1,0 +1,47 @@
+def solucion():
+    with open('MSFT.csv') as microsoft:
+        with open('analisis_archivo.csv', 'w', newline = '') as ar_solucion:
+            reader_microsoft = csv.reader(microsoft)
+            writer_solucion = csv.writer(ar_solucion, delimiter = '\t')
+            data_solucion = [['Fecha', 'Mean-Min-Max', 'Concepto']]
+
+            for i, renglon_microsoft in enumerate(reader_microsoft):
+                if i == 0:
+                    continue
+                elif i == 1:
+                    date_lowest = renglon_microsoft[0]
+                    lowest_value = float(renglon_microsoft[3])
+
+                    date_highest = renglon_microsoft[0]
+                    highest_value = float(renglon_microsoft[2])
+                
+                if lowest_value > float(renglon_microsoft[3]):
+                    date_lowest = renglon_microsoft[0]
+                    lowest_value = float(renglon_microsoft[3])
+                
+                if highest_value < float(renglon_microsoft[2]):
+                    date_highest = renglon_microsoft[0]
+                    highest_value = float(renglon_microsoft[2])
+
+                promedio = (float(renglon_microsoft[2]) + float(renglon_microsoft[3])) / 2
+
+                lista_auxiliar = [renglon_microsoft[0], promedio]
+
+                if promedio < 207:
+                    lista_auxiliar.append('MUY BAJO')
+                
+                elif promedio < 221:
+                    lista_auxiliar.append('BAJO')
+                
+                elif promedio < 235:
+                    lista_auxiliar.append('MEDIO')
+                
+                elif promedio < 249:
+                    lista_auxiliar.append('ALTO')
+                
+                elif promedio >= 249:
+                    lista_auxiliar.append('MUY ALTO')
+                                           
+                data_solucion.append(lista_auxiliar)
+            
+            writer_solution.writerows(data_solucion)
